@@ -1,0 +1,5 @@
+build-essential
+curl
+git
+pkg-config
+libssl-dev
