@@ -1,0 +1,60 @@
+services:
+  lightrag:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: final
+    # stdin_open: true
+    # tty: true
+    command: "streamlit run Home.py"
+    ports:
+      - "8501:8501"
+    volumes:
+      - .:/app
+      - ./data:/app/data
+      - ./rag_storage:/app/rag_storage
+      - ./inputs:/app/inputs
+      - ./outputs:/app/outputs
+    environment:
+      - PYTHONPATH=/app
+      - PYTHONUNBUFFERED=1
+      - LOG_LEVEL=INFO
+      # Required for OpenAI
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      # Optional API key protection
+      # - LIGHTRAG_API_KEY=your_key_here
+
+  # LightRAG CLI
+  # lightrag-cli:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #     target: final
+  #   command: "tail -f /dev/null"  # Keeps the container running
+  #   volumes:
+  #     - .:/app
+  #     - ./data:/app/data
+  #     - ./rag_storage:/app/rag_storage
+  #     - ./inputs:/app/inputs
+  #     - ./outputs:/app/outputs
+  #   environment:
+  #     - PYTHONPATH=/app
+  #     - PYTHONUNBUFFERED=1
+  #     - LOG_LEVEL=INFO
+  #     - OPENAI_API_KEY=${OPENAI_API_KEY}
+  #   entrypoint: /bin/sh
+
+  # Uncomment below if you want to use Neo4j
+  # neo4j:
+  #   image: neo4j:latest
+  #   ports:
+  #     - "7474:7474"
+  #     - "7687:7687"
+  #   environment:
+  #     - NEO4J_AUTH=neo4j/password
+  #   volumes:
+  #     - neo4j_data:/data
+  #     - neo4j_logs:/logs
+# volumes:
+#   neo4j_data:
+#   neo4j_logs:
