@@ -52,8 +52,10 @@ if uploaded_files:
             f.write(uploaded_file.getvalue())
         uploaded_paths.append(file_path)
 
-    # Ingest the uploaded files
-    ingest_data(rag, [UPLOAD_DIR])
+    # Display spinner while ingesting the uploaded files
+    with st.spinner("Ingesting files..."):
+        ingest_data(rag, [UPLOAD_DIR])
+
     st.sidebar.success(f"Successfully ingested {len(uploaded_files)} file(s)")
 
 # Initialize chat history

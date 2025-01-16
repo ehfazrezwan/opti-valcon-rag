@@ -45,7 +45,7 @@ class LightRAGCLI:
         """Generate and save knowledge graph visualization."""
         click.echo("🔄 Generating visualization...")
         graphml_path = os.path.join(WORKING_DIR, "graph_chunk_entity_relation.graphml")
-        output_path = os.path.join(WORKING_DIR, "knowledge_graph.html")
+        output_path = os.path.join(OUTPUT_DIR, "knowledge_graph.html")
         visualize_knowledge_graph(graphml_path, output_path)
         click.echo(f"✅ Visualization saved to {output_path}")
 
